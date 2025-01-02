@@ -1,0 +1,13 @@
+  <% if @data[0][:db_messages] %>
+  <div class="max-w mx-auto space-y-1">
+  <% def foo v
+       'bar'
+     end
+  %>
+  <% @data[0][:db_messages].each do |query| %>
+    <div class="highlight p-4 odd:bg-white even:bg-gray-100"><%= sql_highlight(query) %></div>
+  <% end %>
+  <% else %>
+    <div class="p-4 odd:bg-white even:bg-gray-100">No queries</div>
+  <% end %>
+  </div>

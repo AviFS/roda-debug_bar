@@ -1,0 +1,19 @@
+<% if @data[0][:models] %>
+<div class="max-w mx-auto space-y-1">
+  <% @data[0][:models].each do |model_name, models_list| %>
+  <div class="px-4 py-2 odd:bg-white even:bg-gray-100">
+    <div x-data="{open: false}">
+      <span><%= model_name %> x<%= models_list.size %> </span>
+      <span @click="open = !open" x-text="open? '[-]': '[+]'" class="text-blue-500 hover:cursor-pointer hover:text-blue-700 active:text-blue-400"></span>
+      <ul x-show="open">
+      <% models_list.each do |values| %>
+        <li class="ml-6">{ <%= values.map { |k, v| "#{k}: #{v}" }.join(',  ') %> }</li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+  <% end %>
+</div>
+<% else %>
+<div class="p-4 odd:bg-white even:bg-gray-100">No models</div>
+<% end %>

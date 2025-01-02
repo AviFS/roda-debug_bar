@@ -1,0 +1,62 @@
+  <style>
+    <%= Rouge::Themes::Colorful.render(scope: '.highlight') %>
+    <%#= Rouge::Themes::Github.mode(:light).render(scope: '.highlight') %>
+  </style>
+
+  <section x-data="debugBarComponent()" class="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300">
+    <!-- Debug Bar -->
+    <div class="w-full bg-gray-200 border-t border-gray-300">
+      <!-- Tabs -->
+      <div class="flex bg-gray-200">
+        <template x-for="(tab, index) in tabs" :key="index">
+          <div
+            @click="selectTab(index)"
+            class="flex-1 py-2 text-center cursor-pointer text-sm border-t-4 transition-all"
+            :class="selectedTab === index
+              ? 'bg-gray-300 border-blue-600 font-bold'
+              : 'bg-gray-200 border-transparent text-gray-800'"
+            x-text="tab.label">
+          </div>
+        </template>
+      </div>
+      <!-- Tab Content -->
+      <!-- <div class="p-8 bg-gray-100 text-sm text-gray-800"> -->
+      <!-- <div class="bg-gray-100 text-sm text-gray-800 h-48 overflow-y-auto"> -->
+      <%#= @data.inspect %>
+      <%#= @data[0][:request].request_method %>
+      <%#= @data[0][:request].path %>
+      <div class="bg-white text-sm text-gray-800 h-48 overflow-y-auto">
+        <template x-for="(tab, index) in tabs" :key="index">
+          <div x-show="selectedTab === index" x-html="tab.content"></div>
+        </template>
+      </div>
+    </div>
+  </section>
+
+  <!-- <script src="//unpkg.com/alpinejs" defer></script> -->
+  <script>
+    function debugBarComponent() {
+      return {
+        selectedTab: 0,
+        tabs: [
+          { label: 'Models', content: `<%= relative_render('debug_bar/models') %>` },
+          { label: 'Queries', content: `<%= relative_render('debug_bar/queries') %>` },
+          { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
+          { label: 'Messages', content: 'Debug Info for Tab 1' },
+          // { label: 'Timeline', content: 'Debug Info for Tab 2' },
+          // { label: 'Exceptions', content: 'Debug Info for Tab 3' },
+          { label: 'Views', content: `<%= relative_render('debug_bar/views') %>` },
+          { label: 'Route', content:  'asdf' },
+          { label: 'Queries', content: `<%= relative_render('debug_bar/queries') %>` },
+          { label: 'Models', content: `<%= relative_render('debug_bar/models') %>` },
+          // { label: 'Mails', content: 'Debug Info for Tab 4' },
+          // { label: 'Gate', content: 'Debug Info for Tab 4' },
+          { label: 'Session', content: 'Debug Info for Tab 4' },
+          { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
+        ],
+        selectTab(index) {
+          this.selectedTab = index;
+        }
+      };
+    }
+  </script>

@@ -1,0 +1,36 @@
+<%
+
+hash = [
+  { name: 'request_method', value: request.request_method },
+  { name: 'request_path', value: request.path },
+  { name: 'request_params', value: request.params }
+]
+
+request.env.each do |key, value|
+  hash << {name: key.downcase, value: value} if key.start_with?('HTTP_')
+end
+
+hash << { name: 'request_headers', value: request.env }
+
+%>
+
+<div class="max-w mx-auto space-y-1">
+  <% hash.each do |elem| %>
+  <div class="px-4 py-2 odd:bg-white even:bg-gray-100">
+    <span class="mr-8"><%= elem[:name] %></span><span class=""><%= elem[:value] %></span>
+  </div>
+  <% end %>
+</div>
+
+<!--
+<div class="grid grid-cols-2 gap-4 p-4 border border-gray-300 rounded-md">
+  <div class="font-bold">request_method</div>
+  <div>GET</div>
+  <div class="font-bold">request_path</div>
+  <div>/</div>
+  <div class="font-bold">request_params</div>
+  <div>{}</div>
+  <div class="font-bold">http_host</div>
+  <div>localhost:9292</div>
+</div>
+-->
