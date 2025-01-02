@@ -117,12 +117,22 @@ class Roda
         # data[:views] = @views
 
         if trace
+          p "matches: #{matches}"
           matches.each do |match|
             add_log_entry([meth, format("  %s (%s:%s)",
               File.readlines(match.path)[match.lineno - 1].strip.sub(" do", ""),
               Pathname(match.path).relative_path_from(root),
               match.lineno)])
+
+
+            handler = File.readlines(match.path)[match.lineno - 1].strip.sub(" do", "")
+            path = "#{Pathname(match.path).relative_path_from(root)}:#{match.lineno}"
+            Roda::DebugBar::Current.add_route(handler, path)
           end
+        end
+
+        if (routes = Roda::DebugBar::Current.routes)
+          data[:routes] = routes
         end
 
         return if filter.call(request.path)

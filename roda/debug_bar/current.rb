@@ -82,6 +82,18 @@ class Roda
         Thread.current[:view] = value
       end
 
+      def add_route(handler, path)
+        Thread.current[:routes] ||= []
+        Thread.current[:routes] << {handler: handler, path: path}
+      end
+
+      def routes
+        Thread.current[:routes]
+      end
+
+      def routes=(value)
+        Thread.current[:routes] = value
+      end
 
       # Reset the counters
       def reset
@@ -90,6 +102,7 @@ class Roda
         self.database_queries = nil
         self.models = nil
         self.views = nil
+        self.routes = nil
         true
       end
     end

@@ -14,7 +14,8 @@ class Roda
         db: nil,
         log_time: false,
         trace_missed: true,
-        trace_all: false,
+        # trace_all: false,
+        trace_all: true,
         filtered_params: %w[password password_confirmation _csrf],
         handlers: [:console]
       }.freeze

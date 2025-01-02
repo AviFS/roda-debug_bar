@@ -1,0 +1,12 @@
+<div class="p-4 odd:bg-white even:bg-gray-100">
+  <a class="text-blue-500 hover:underline hover:cursor-pointer" href="vscode://file/<%= File.join(@app_root, @data[0][:handler]) %>">
+    <%= @data[0][:handler] %>
+  </a>
+</div>
+<% @data[0][:routes].each do |route| %>
+  <div class="p-4 odd:bg-white even:bg-gray-100">
+  <a class="text-blue-500 hover:underline hover:cursor-pointer" href="vscode://file/<%= File.join(@app_root, route[:path]) %>">
+    <%= route[:handler] %>
+  </a>
+  </div>
+<% end %>
