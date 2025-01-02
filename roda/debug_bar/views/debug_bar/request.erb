@@ -14,9 +14,9 @@ hash << { name: 'request_headers', value: request.env }
 
 %>
 
-<div class="max-w mx-auto space-y-1">
+<div class="max-w mx-auto space-y-1 font-mono">
   <% hash.each do |elem| %>
-  <div class="px-4 py-2 odd:bg-white even:bg-gray-100">
+  <div class="px-4 py-1 odd:bg-white even:bg-ruby-50">
     <span class="mr-8"><%= elem[:name] %></span><span class=""><%= elem[:value] %></span>
   </div>
   <% end %>

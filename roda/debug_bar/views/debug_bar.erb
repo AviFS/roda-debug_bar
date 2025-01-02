@@ -3,42 +3,61 @@
     <%#= Rouge::Themes::Github.mode(:light).render(scope: '.highlight') %>
   </style>
 
-  <section x-data="debugBarComponent()" class="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300">
-    <!-- Debug Bar -->
-    <div class="w-full bg-gray-200 border-t border-gray-300">
-      <!-- Tabs -->
-      <div class="flex bg-gray-200">
-        <template x-for="(tab, index) in tabs" :key="index">
-          <div
-            @click="selectTab(index)"
-            class="flex-1 py-2 text-center cursor-pointer text-sm border-t-4 transition-all"
-            :class="selectedTab === index
-              ? 'bg-gray-300 border-blue-600 font-bold'
-              : 'bg-gray-200 border-transparent text-gray-800'"
-            x-text="tab.label">
-          </div>
-        </template>
-      </div>
-      <!-- Tab Content -->
-      <!-- <div class="p-8 bg-gray-100 text-sm text-gray-800"> -->
-      <!-- <div class="bg-gray-100 text-sm text-gray-800 h-48 overflow-y-auto"> -->
-      <%#= @data.inspect %>
-      <%#= @data[0][:request].request_method %>
-      <%#= @data[0][:request].path %>
-      <div class="bg-white text-sm text-gray-800 h-48 overflow-y-auto">
-        <template x-for="(tab, index) in tabs" :key="index">
-          <div x-show="selectedTab === index" x-html="tab.content"></div>
-        </template>
+  <!--  -->
+  <link rel="stylesheet" href="dist/out.css">
+  <!--  -->
+
+  <div x-data="{hidden: false}">
+
+    <!-- Ruby logo in lower lefthand side -->
+    <div>
+      <div x-show="hidden" class="fixed bottom-2 left-0 pt-2 px-2 text-center hover:cursor-pointer" @click="hidden = false">
+        <img src="/dist/ruby.png" alt="Ruby" class="h-7 w-auto">
       </div>
     </div>
-  </section>
+
+    <section x-show="!hidden" x-data="debugBarComponent()" class="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300">
+      <!-- Debug Bar -->
+      <div class="w-full bg-gray-200 border-t border-gray-300">
+        <!-- Tabs -->
+        <div class="flex bg-gray-200">
+          <div class="pt-2 px-2 text-center hover:cursor-pointer" @click="hidden = true">
+            <img src="/dist/ruby.png" alt="Ruby" class="h-7 w-auto">
+          </div>
+          <template x-for="(tab, index) in tabs" :key="index">
+            <div
+              @click="selectTab(index)"
+              class="flex-1 py-2 text-center cursor-pointer text-sm border-t-4 transition-all"
+              :class="selectedTab === index
+                ? 'bg-gray-300 border-ruby-600 font-bold'
+                : 'bg-gray-200 border-transparent text-gray-800'"
+              x-text="tab.label">
+            </div>
+          </template>
+        </div>
+        <!-- Tab Content -->
+        <!-- <div class="p-8 bg-gray-100 text-sm text-gray-800"> -->
+        <!-- <div class="bg-gray-100 text-sm text-gray-800 h-48 overflow-y-auto"> -->
+        <%#= @data.inspect %>
+        <%#= @data[0][:request].request_method %>
+        <%#= @data[0][:request].path %>
+        <div class="bg-white text-sm text-gray-800 h-48 overflow-y-auto">
+          <template x-for="(tab, index) in tabs" :key="index">
+            <div x-show="selectedTab === index" x-html="tab.content"></div>
+          </template>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- <script src="//unpkg.com/alpinejs" defer></script> -->
   <script>
     function debugBarComponent() {
       return {
         selectedTab: 0,
+
         tabs: [
+          { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
           { label: 'Models', content: `<%= relative_render('debug_bar/models') %>` },
           { label: 'Queries', content: `<%= relative_render('debug_bar/queries') %>` },
           { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
@@ -54,6 +73,7 @@
           { label: 'Session', content: 'Debug Info for Tab 4' },
           { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
         ],
+
         selectTab(index) {
           this.selectedTab = index;
         }
