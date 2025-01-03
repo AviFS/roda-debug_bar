@@ -2,6 +2,8 @@ module.exports = {
   content: [
     "./roda/debug_bar/views/*.erb",
     "./roda/debug_bar/views/debug_bar/*.erb",
+    "/Users/avi/code/2025/jan/roda-30day-clone/views/*.erb",
+    "/Users/avi/code/2025/jan/roda-30day-clone/views/components/*.erb",
   ],
   theme: {
     extend: {

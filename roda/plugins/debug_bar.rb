@@ -100,12 +100,15 @@ class Roda
         end
 
         def view(path, opts = {})
-        unless opts[:ignore]
-          puts "view #{path}"
-          Roda::DebugBar::Current.add_view(path)
+          unless opts[:ignore]
+            puts "view #{path}"
+            Roda::DebugBar::Current.add_view(path)
+          end
+          super
         end
-        super
-      end
+
+        # def grid_component(opts)
+        # end
 
         def relative_render view
           render('', path: File.join(__dir__, "../debug_bar/views/#{view}.erb"), ignore: true)

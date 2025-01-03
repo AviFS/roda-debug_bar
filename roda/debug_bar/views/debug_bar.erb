@@ -1,29 +1,57 @@
   <style>
-    <%= Rouge::Themes::Colorful.render(scope: '.highlight') %>
+    <%#= Rouge::Themes::Colorful.render(scope: '.highlight') %>
     <%#= Rouge::Themes::Github.mode(:light).render(scope: '.highlight') %>
+
+    /* SQL syntax highlight */
+
+    /* keywords */
+    .highlight .k {
+      font-weight: bold;
+      color: #912520;     /* ruby-700 */
+    }
+
+    /* strings */
+    .highlight .nv {
+      color: #009999;
+    }
+
+    /* integers */
+    .highlight .mi {
+      font-weight: bold;
+      color: #0086B3;
+    }
+
+    /* punctuation */
+    .highlight .p {
+      color: #9ca3af;
+    }
   </style>
 
   <!--  -->
   <link rel="stylesheet" href="dist/out.css">
   <!--  -->
 
-  <div x-data="{hidden: false}">
+  <div x-data="debugBarComponent()" x-init="init()">
 
     <!-- Ruby logo in lower lefthand side -->
     <div>
-      <div x-show="hidden" class="fixed bottom-2 left-0 pt-2 px-2 text-center hover:cursor-pointer" @click="hidden = false">
+      <div x-show="hidden" class="fixed bottom-0 left-0 pb-2 pt-2 pl-2 pr-3 text-center hover:cursor-pointer border-t-4 border-ruby-600 bg-gray-200" @click="hidden = false">
         <img src="/dist/ruby.png" alt="Ruby" class="h-7 w-auto">
       </div>
     </div>
 
-    <section x-show="!hidden" x-data="debugBarComponent()" class="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300">
+    <section x-show="!hidden" class="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300">
       <!-- Debug Bar -->
       <div class="w-full bg-gray-200 border-t border-gray-300">
         <!-- Tabs -->
+
+        <!-- Clickable Ruby logo to hide debug bar -->
         <div class="flex bg-gray-200">
           <div class="pt-2 px-2 text-center hover:cursor-pointer" @click="hidden = true">
             <img src="/dist/ruby.png" alt="Ruby" class="h-7 w-auto">
           </div>
+
+          <!-- Tab group for request/models/queries... -->
           <template x-for="(tab, index) in tabs" :key="index">
             <div
               @click="selectTab(index)"
@@ -34,6 +62,18 @@
               x-text="tab.label">
             </div>
           </template>
+
+          <div class="w-8">
+          </div>
+
+          <div class="flex-1 py-2 text-center text-sm border-t-4 border-transparent text-gray-800 font-mono">
+            <%= relative_render('debug_bar/right_bar') %>
+          </div>
+
+          <div>
+
+          </div>
+
         </div>
         <!-- Tab Content -->
         <!-- <div class="p-8 bg-gray-100 text-sm text-gray-800"> -->
@@ -52,30 +92,55 @@
 
   <!-- <script src="//unpkg.com/alpinejs" defer></script> -->
   <script>
+    function         ss() {
+          let f = sessionStorage.getItem('selectedTab');
+          if (f == null) {
+            return 4;
+          }
+          return f;
+        }
+
+
     function debugBarComponent() {
       return {
         selectedTab: 0,
-
+        hidden: false,
         tabs: [
+          // Can't comment out lines with backticks or it doesn't render
           { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
           { label: 'Models', content: `<%= relative_render('debug_bar/models') %>` },
           { label: 'Queries', content: `<%= relative_render('debug_bar/queries') %>` },
-          { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
           { label: 'Messages', content: 'Debug Info for Tab 1' },
           // { label: 'Timeline', content: 'Debug Info for Tab 2' },
           // { label: 'Exceptions', content: 'Debug Info for Tab 3' },
           { label: 'Views', content: `<%= relative_render('debug_bar/views') %>` },
           { label: 'Route', content:  `<%= relative_render('debug_bar/route') %>` },
-          { label: 'Queries', content: `<%= relative_render('debug_bar/queries') %>` },
-          { label: 'Models', content: `<%= relative_render('debug_bar/models') %>` },
           // { label: 'Mails', content: 'Debug Info for Tab 4' },
           // { label: 'Gate', content: 'Debug Info for Tab 4' },
           { label: 'Session', content: 'Debug Info for Tab 4' },
-          { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
         ],
+
+        ss() {
+          let f = sessionStorage.getItem('selectedTab');
+          if (f == null) {
+            return 4;
+          }
+          return f;
+        },
+
+        init() {
+          // console.log(savedTab);
+          // this.selectedTab = savedTab || this.selectedTab;
+          // console.log(this.selectedTab);
+          // let tab = sessionStorage.getItem('selectedTab') || 2;
+          // console.log(tab);
+          this.selectedTab = ss();
+          // console.log(this.selectedTab);
+        },
 
         selectTab(index) {
           this.selectedTab = index;
+          sessionStorage.setItem('selectedTab', index);
         }
       };
     }

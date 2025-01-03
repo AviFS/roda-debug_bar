@@ -5,9 +5,11 @@
      end
   %>
   <% @data[0][:db_messages].each do |query| %>
-    <div class="highlight p-4 odd:bg-white even:bg-gray-100"><%= sql_highlight(query) %></div>
+    <div class="highlight px-4 py-1 odd:bg-white even:bg-ruby-50 font-mono"><%= sql_highlight(query).downcase %></div>
   <% end %>
   <% else %>
     <div class="p-4 odd:bg-white even:bg-gray-100">No queries</div>
   <% end %>
   </div>
+
+<#% grid_component(@data[0][:db_messages], ) %>
