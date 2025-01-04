@@ -129,13 +129,10 @@
         },
 
         init() {
-          // console.log(savedTab);
-          // this.selectedTab = savedTab || this.selectedTab;
-          // console.log(this.selectedTab);
-          // let tab = sessionStorage.getItem('selectedTab') || 2;
-          // console.log(tab);
-          this.selectedTab = ss();
-          // console.log(this.selectedTab);
+          let saved = sessionStorage.getItem('selectedTab') || 0;
+          console.log('saved: ', saved);
+          this.selectedTab = saved;
+          console.log('selected: ', this.selectedTab);
         },
 
         selectTab(index) {
