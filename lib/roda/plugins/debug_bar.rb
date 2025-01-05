@@ -36,6 +36,8 @@ class Roda
       def self.configure(app, opts = {})
         # app.opts[:debug_bar] = opts
 
+        @@data_store = []
+
         options = DEFAULTS.merge(opts)
 
         logger = TTY::Logger.new { |config|
@@ -64,10 +66,10 @@ class Roda
         app.before do
           @_debug_bar_instance = Roda::DebugBar::Instance.new(logger, env, object_id, root, options[:filter])
 
-          @assets = false
+          @halted = false
 
           if request.path == '/debug_bar/ruby.png'
-            @assets = true
+            @halted = true
             response.status = 200
             response['content-type'] = 'image/png'
             response.write(File.open(File.join(__dir__, '../../../public/ruby.png')).read)
@@ -75,20 +77,44 @@ class Roda
           end
 
           if request.path == '/debug_bar/out.css'
-            @assets = true
+            @halted = true
             response.status = 200
             response['content-type'] = 'text/css'
             response.write(File.open(File.join(__dir__, '../../../public/out.css')).read)
             request.halt
           end
 
+          if request.path.start_with? '/debug_bar/last/'
+            @halted = true
+            id = request.path.split('/').last.to_i
+
+            if id > @@data_store.size
+              response.status = 404
+              response['content-type'] = 'text/plain'
+              response.write "Log ##{id} either doesn't exist yet, or wasn't stored. The current max store is 5."
+              request.halt
+            end
+
+            response.status = 200
+            response['content-type'] = 'application/json'
+            response.write(@@data_store[-id].to_json)
+            request.halt
+          end
+
+          # if request.path.start_with? '/debug_bar/catch/'
+          #   # request.path.sub!('/debug_bar/catch', '')
+          #   request.path = '/jobs'
+          # end
+
+          # puts request.path
+
         end
 
         app.after do |res|
 
-          break if @assets
+          break if @halted
 
-          status, _ = res
+          status, headers, content = res
           @_debug_bar_instance.add(
             status,
             request,
@@ -98,6 +124,25 @@ class Roda
           # This @data is available to views
           @data = @_debug_bar_instance.debug_data
 
+          if headers['content-type'] == 'text/html'
+            #####
+
+            # Should be a method, but I'm having trouble accessing the class variable from within an instance method
+            # def add_data(data)
+              if @@data_store.size < 5
+                @@data_store << @data
+              else
+                @@data_store.shift
+                @@data_store.push @data
+              end
+            # end
+
+            #####
+
+            # add_data(@data)
+
+            puts @@data_store.size
+          end
 
           imports = <<-HTML
   <script src="https://unpkg.com/alpinejs@3.14.8/dist/cdn.min.js" defer></script>
@@ -107,25 +152,29 @@ class Roda
   <script src="https://unpkg.com/@alenaksu/json-viewer@2.1.0/dist/json-viewer.bundle.js"></script> -->
 HTML
 
-          res[2] = res[2].map do |body_part|
-            if body_part.include?("<head>")
-              body_part.sub("<head>", "<head>#{imports}")
-            else
-              "#{imports}#{body_part}"
+          if headers['content-type'] == 'text/html'
+
+            res[2] = res[2].map do |body_part|
+              if body_part.include?("<head>")
+                body_part.sub("<head>", "<head>#{imports}")
+              else
+                "#{imports}#{body_part}"
+              end
             end
-          end
 
-          debug_bar = relative_render('debug_bar')
+            debug_bar = relative_render('debug_bar')
 
-          res[2] = res[2].map do |body_part|
-            if body_part.include?("</body>")
-              body_part.sub("</body>", "#{debug_bar}</body>")
-            else
-              "#{body_part}#{debug_bar}"
+            res[2] = res[2].map do |body_part|
+              if body_part.include?("</body>")
+                body_part.sub("</body>", "#{debug_bar}</body>")
+              else
+                "#{body_part}#{debug_bar}"
+              end
             end
-          end
 
-          res[1]["Content-Length"] = res[2].reduce(0) { |memo, chunk| memo + chunk.bytesize }.to_s
+            res[1]["Content-Length"] = res[2].reduce(0) { |memo, chunk| memo + chunk.bytesize }.to_s
+
+          end
 
           # if request.path == '/baz'
           #   puts 'hi hi hi'
@@ -139,6 +188,15 @@ HTML
       #########
 
       module InstanceMethods
+
+        # def add_data(data)
+        #   if @@data_store.size < 5
+        #     @@data_store << data
+        #   else
+        #     @@data_store.unshift
+        #     @@data_store.push data
+        #   end
+        # end
 
         def render(path, opts = {})
           unless opts[:ignore]

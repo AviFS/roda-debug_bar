@@ -1,4 +1,7 @@
+import { scopedPreflightStyles, isolateInsideOfContainer } from 'tailwindcss-scoped-preflight';
+
 module.exports = {
+  // important: true,
   content: [
     "./lib/roda/debug_bar/views/*.erb",
     "./lib/roda/debug_bar/views/debug_bar/*.erb",
@@ -21,5 +24,11 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    scopedPreflightStyles({
+      isolationStrategy: isolateInsideOfContainer('.debug-bar', {
+        except: '.no-tailwind', // optional, to exclude some elements under .twp from being preflighted, like external markup
+      }),
+    }),
+  ],
 };

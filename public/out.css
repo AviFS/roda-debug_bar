@@ -107,17 +107,13 @@
 }
 
 /*
-! tailwindcss v3.4.15 | MIT License | https://tailwindcss.com
-*/
-
-/*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
 
-*,
-::before,
-::after {
+*:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *))::before,
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *))::after {
   box-sizing: border-box;
   /* 1 */
   border-width: 0;
@@ -128,8 +124,8 @@
   /* 2 */
 }
 
-::before,
-::after {
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *))::before,
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *))::after {
   --tw-content: '';
 }
 
@@ -143,8 +139,7 @@
 7. Disable tap highlights on iOS
 */
 
-html,
-:host {
+.debug-bar:where(:not(.no-tailwind,.no-tailwind *)) {
   line-height: 1.5;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -169,7 +164,7 @@ html,
 2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
 */
 
-body {
+.debug-bar:where(:not(.no-tailwind,.no-tailwind *)) {
   margin: 0;
   /* 1 */
   line-height: inherit;
@@ -182,7 +177,7 @@ body {
 3. Ensure horizontal rules are visible by default.
 */
 
-hr {
+hr:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   height: 0;
   /* 1 */
   color: inherit;
@@ -195,7 +190,7 @@ hr {
 Add the correct text decoration in Chrome, Edge, and Safari.
 */
 
-abbr:where([title]) {
+abbr:where([title]):where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;
 }
@@ -204,12 +199,12 @@ abbr:where([title]) {
 Remove the default font size and weight for headings.
 */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h2:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h3:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h4:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h5:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h6:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   font-size: inherit;
   font-weight: inherit;
 }
@@ -218,7 +213,7 @@ h6 {
 Reset links to optimize for opt-in styling instead of opt-out.
 */
 
-a {
+a:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   color: inherit;
   text-decoration: inherit;
 }
@@ -227,8 +222,8 @@ a {
 Add the correct font weight in Edge and Safari.
 */
 
-b,
-strong {
+b:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+strong:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   font-weight: bolder;
 }
 
@@ -239,10 +234,10 @@ strong {
 4. Correct the odd `em` font sizing in all browsers.
 */
 
-code,
-kbd,
-samp,
-pre {
+code:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+kbd:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+samp:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+pre:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   /* 1 */
   font-feature-settings: normal;
@@ -257,7 +252,7 @@ pre {
 Add the correct font size in all browsers.
 */
 
-small {
+small:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   font-size: 80%;
 }
 
@@ -265,19 +260,19 @@ small {
 Prevent `sub` and `sup` elements from affecting the line height in all browsers.
 */
 
-sub,
-sup {
+sub:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+sup:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   font-size: 75%;
   line-height: 0;
   position: relative;
   vertical-align: baseline;
 }
 
-sub {
+sub:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   bottom: -0.25em;
 }
 
-sup {
+sup:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   top: -0.5em;
 }
 
@@ -287,7 +282,7 @@ sup {
 3. Remove gaps between table borders by default.
 */
 
-table {
+table:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   text-indent: 0;
   /* 1 */
   border-color: inherit;
@@ -302,11 +297,11 @@ table {
 3. Remove default padding in all browsers.
 */
 
-button,
-input,
-optgroup,
-select,
-textarea {
+button:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+input:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+optgroup:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+select:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+textarea:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   font-family: inherit;
   /* 1 */
   font-feature-settings: inherit;
@@ -333,8 +328,8 @@ textarea {
 Remove the inheritance of text transform in Edge and Firefox.
 */
 
-button,
-select {
+button:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+select:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   text-transform: none;
 }
 
@@ -343,10 +338,10 @@ select {
 2. Remove default button styles.
 */
 
-button,
-input:where([type='button']),
-input:where([type='reset']),
-input:where([type='submit']) {
+button:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+input:where([type='button']):where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+input:where([type='reset']):where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+input:where([type='submit']):where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   -webkit-appearance: button;
   /* 1 */
   background-color: transparent;
@@ -359,7 +354,7 @@ input:where([type='submit']) {
 Use the modern Firefox focus style for all focusable elements.
 */
 
-:-moz-focusring {
+:-moz-focusring:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   outline: auto;
 }
 
@@ -367,7 +362,7 @@ Use the modern Firefox focus style for all focusable elements.
 Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
 */
 
-:-moz-ui-invalid {
+:-moz-ui-invalid:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   box-shadow: none;
 }
 
@@ -375,7 +370,7 @@ Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/
 Add the correct vertical alignment in Chrome and Firefox.
 */
 
-progress {
+progress:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   vertical-align: baseline;
 }
 
@@ -383,8 +378,8 @@ progress {
 Correct the cursor style of increment and decrement buttons in Safari.
 */
 
-::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) ::-webkit-inner-spin-button,
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) ::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -393,7 +388,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 2. Correct the outline style in Safari.
 */
 
-[type='search'] {
+[type='search']:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   -webkit-appearance: textfield;
   /* 1 */
   outline-offset: -2px;
@@ -404,7 +399,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 Remove the inner padding in Chrome and Safari on macOS.
 */
 
-::-webkit-search-decoration {
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
@@ -413,7 +408,7 @@ Remove the inner padding in Chrome and Safari on macOS.
 2. Change font properties to `inherit` in Safari.
 */
 
-::-webkit-file-upload-button {
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) ::-webkit-file-upload-button {
   -webkit-appearance: button;
   /* 1 */
   font: inherit;
@@ -424,7 +419,7 @@ Remove the inner padding in Chrome and Safari on macOS.
 Add the correct display in Chrome and Safari.
 */
 
-summary {
+summary:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   display: list-item;
 }
 
@@ -432,34 +427,34 @@ summary {
 Removes the default spacing and border for appropriate elements.
 */
 
-blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-figure,
-p,
-pre {
+blockquote:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+dl:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+dd:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h1:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h2:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h3:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h4:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h5:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+h6:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+hr:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+figure:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+p:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+pre:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   margin: 0;
 }
 
-fieldset {
+fieldset:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   margin: 0;
   padding: 0;
 }
 
-legend {
+legend:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   padding: 0;
 }
 
-ol,
-ul,
-menu {
+ol:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+ul:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+menu:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -469,7 +464,7 @@ menu {
 Reset default styling for dialogs.
 */
 
-dialog {
+dialog:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   padding: 0;
 }
 
@@ -477,7 +472,7 @@ dialog {
 Prevent resizing textareas horizontally by default.
 */
 
-textarea {
+textarea:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   resize: vertical;
 }
 
@@ -486,15 +481,15 @@ textarea {
 2. Set the default placeholder color to the user's configured gray 400 color.
 */
 
-input::-moz-placeholder, textarea::-moz-placeholder {
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) input::-moz-placeholder, :where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) textarea::-moz-placeholder {
   opacity: 1;
   /* 1 */
   color: #9ca3af;
   /* 2 */
 }
 
-input::placeholder,
-textarea::placeholder {
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) input::placeholder,
+:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) textarea::placeholder {
   opacity: 1;
   /* 1 */
   color: #9ca3af;
@@ -505,8 +500,8 @@ textarea::placeholder {
 Set the default cursor for buttons.
 */
 
-button,
-[role="button"] {
+button:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+[role="button"]:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   cursor: pointer;
 }
 
@@ -514,7 +509,7 @@ button,
 Make sure disabled buttons don't get the pointer cursor.
 */
 
-:disabled {
+:disabled:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   cursor: default;
 }
 
@@ -524,14 +519,14 @@ Make sure disabled buttons don't get the pointer cursor.
    This can trigger a poorly considered lint error in some tools but is included by design.
 */
 
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
+img:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+svg:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+video:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+canvas:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+audio:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+iframe:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+embed:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+object:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   display: block;
   /* 1 */
   vertical-align: middle;
@@ -542,15 +537,15 @@ object {
 Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
 */
 
-img,
-video {
+img:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)),
+video:where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   max-width: 100%;
   height: auto;
 }
 
 /* Make elements with the HTML hidden attribute stay hidden by default */
 
-[hidden]:where(:not([hidden="until-found"])) {
+[hidden]:where(:not([hidden="until-found"])):where(.debug-bar,.debug-bar *):where(:not(.no-tailwind,.no-tailwind *)) {
   display: none;
 }
 
@@ -602,6 +597,11 @@ video {
 .size-5 {
   width: 1.25rem;
   height: 1.25rem;
+}
+
+.size-4 {
+  width: 1rem;
+  height: 1rem;
 }
 
 .h-48 {
