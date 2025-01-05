@@ -101,12 +101,17 @@ class Roda
             request.halt
           end
 
-          # if request.path.start_with? '/debug_bar/catch/'
-          #   # request.path.sub!('/debug_bar/catch', '')
-          #   request.path = '/jobs'
-          # end
-
-          # puts request.path
+          # request.env['PATH_INFO'] is Rack's raw path
+          # request.path is a Roda abstraction over it, but can't be modified
+          @debug_catch = false
+          if request.env['PATH_INFO'].start_with? '/debug_bar/catch/'
+            @debug_catch = true
+            request.env['PATH_INFO'].sub!('/debug_bar/catch', '')
+          end
+          if request.env['PATH_INFO'].start_with? '/debug_bar/c/'
+            @debug_catch = true
+            request.env['PATH_INFO'].sub!('/debug_bar/c', '')
+          end
 
         end
 
@@ -123,6 +128,16 @@ class Roda
 
           # This @data is available to views
           @data = @_debug_bar_instance.debug_data
+
+          if @debug_catch
+            response = @data.to_json
+            res[1]['content-type'] = 'application/json'
+            res[1]['Content-Length'] = response.bytesize.to_s
+            res[2] = [response]
+            @_debug_bar_instance.drain
+            @_debug_bar_instance.reset
+            break
+          end
 
           if headers['content-type'] == 'text/html'
             #####
