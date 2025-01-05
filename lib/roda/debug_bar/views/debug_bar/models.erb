@@ -1,0 +1,35 @@
+<% if @data[:models] %>
+<div class="max-w mx-auto space-y-1">
+  <% @data[:models].each do |model_name, models_list| %>
+  <div class="px-4 py-2 odd:bg-white even:bg-ruby-50">
+
+    <!-- <pretty-json> <%= {model_name => models_list}.to_json %></pretty-json> -->
+
+<!--
+    <json-viewer> <%= {model_name => models_list}.to_json %><json-viewer>
+
+    <json-viewer>
+    { "quiz": { "sport": { "q1": { "question": "Which one is correct team name in NBA?", "options": [ "New York Bulls",
+    "Los Angeles Kings", "Golden State Warriros", "Huston Rocket" ], "answer": "Huston Rocket" } }, "maths": { "q1": {
+    "question": "5 + 7 = ?", "options": [ "10", "11", "12", "13" ], "answer": "12" }, "q2": { "question": "12 - 8 = ?",
+    "options": [ "1", "2", "3", "4" ], "answer": "4" } } } }
+  </json-viewer>
+  -->
+
+    <div x-data="{open: false}">
+      <span><%= model_name %> x<%= models_list.size %> </span>
+      <span @click="open = !open" x-text="open? '[-]': '[+]'" class="text-blue-500 hover:cursor-pointer hover:text-blue-700 active:text-blue-400"></span>
+      <ul x-show="open" class="font-mono">
+      <% models_list.each do |values| %>
+        <!-- <li class="ml-6 highlight">{ <%= highlight_ruby_hash(values.map { |k, v| "#{k}: #{v}" }.join(',  ')) %> }</li> -->
+        <li class="ml-6 highlight ruby"><%= highlight_ruby_hash(values.to_s) %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <% end %>
+</div>
+<% else %>
+<div class="px-4 py-2 odd:bg-white even:bg-ruby-50">No models</div>
+<% end %>

@@ -6,6 +6,8 @@ require_relative "../../sequel/extensions/debug_bar"
 require_relative "../../sequel/plugins/debug_bar"
 require 'rouge'
 
+require 'json'
+
 class Roda
   module RodaPlugins
     module DebugBar
@@ -14,14 +16,18 @@ class Roda
         db: nil,
         log_time: false,
         trace_missed: true,
-        # trace_all: false,
-        trace_all: true,
+        ##### PUT TRACE ALL TO TRUE AGAIN
+        trace_all: false,
+        # trace_all: true,
         filtered_params: %w[password password_confirmation _csrf],
         handlers: [:console]
       }.freeze
 
       def self.load_dependencies(app, opts = {})
         app.plugin :render
+
+        # just to display sessions
+        # app.plugin :sessions, secret: 'very-secret'*20
 
         app.plugin :hooks
         app.plugin :match_hook
@@ -34,7 +40,7 @@ class Roda
 
         logger = TTY::Logger.new { |config|
           config.handlers = options[:handlers]
-          config.output = options.fetch(:output) { $stdout }
+          config.output = options.fetch(:output) { File.open('/dev/null', 'w') }
           config.metadata.push(:time, :date) if options[:log_time]
           config.filters.data = options[:filtered_params]
           config.filters.mask = "<FILTERED>"
@@ -57,9 +63,31 @@ class Roda
 
         app.before do
           @_debug_bar_instance = Roda::DebugBar::Instance.new(logger, env, object_id, root, options[:filter])
+
+          @assets = false
+
+          if request.path == '/debug_bar/ruby.png'
+            @assets = true
+            response.status = 200
+            response['content-type'] = 'image/png'
+            response.write(File.open(File.join(__dir__, '../../../public/ruby.png')).read)
+            request.halt
+          end
+
+          if request.path == '/debug_bar/out.css'
+            @assets = true
+            response.status = 200
+            response['content-type'] = 'text/css'
+            response.write(File.open(File.join(__dir__, '../../../public/out.css')).read)
+            request.halt
+          end
+
         end
 
         app.after do |res|
+
+          break if @assets
+
           status, _ = res
           @_debug_bar_instance.add(
             status,
@@ -68,7 +96,24 @@ class Roda
           )
 
           # This @data is available to views
-          @data = @_debug_bar_instance.datas
+          @data = @_debug_bar_instance.debug_data
+
+
+          imports = <<-HTML
+  <script src="https://unpkg.com/alpinejs@3.14.8/dist/cdn.min.js" defer></script>
+  <!-- <script src="https://raw.githubusercontent.com/caldwell/renderjson/refs/heads/master/renderjson.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/caldwell/renderjson@master/renderjson.js"></script>
+  <script defer src="https://unpkg.com/pretty-json-custom-element/index.js"></script>
+  <script src="https://unpkg.com/@alenaksu/json-viewer@2.1.0/dist/json-viewer.bundle.js"></script> -->
+HTML
+
+          res[2] = res[2].map do |body_part|
+            if body_part.include?("<head>")
+              body_part.sub("<head>", "<head>#{imports}")
+            else
+              "#{imports}#{body_part}"
+            end
+          end
 
           debug_bar = relative_render('debug_bar')
 
@@ -82,6 +127,10 @@ class Roda
 
           res[1]["Content-Length"] = res[2].reduce(0) { |memo, chunk| memo + chunk.bytesize }.to_s
 
+          # if request.path == '/baz'
+          #   puts 'hi hi hi'
+          # end
+
           @_debug_bar_instance.drain
           @_debug_bar_instance.reset
         end
@@ -93,7 +142,7 @@ class Roda
 
         def render(path, opts = {})
           unless opts[:ignore]
-            puts "rendering #{path}"
+            # puts "rendering #{path}"
             Roda::DebugBar::Current.add_view(path)
           end
           super
@@ -101,7 +150,7 @@ class Roda
 
         def view(path, opts = {})
           unless opts[:ignore]
-            puts "view #{path}"
+            # puts "view #{path}"
             Roda::DebugBar::Current.add_view(path)
           end
           super
@@ -119,6 +168,12 @@ class Roda
           lexer = Rouge::Lexers::SQL.new
           sql = formatter.format(lexer.lex(query))
           sql.gsub('`', '&#96;')
+        end
+
+        def highlight_ruby_hash query
+          formatter = Rouge::Formatters::HTML.new
+          lexer = Rouge::Lexers::Ruby.new
+          formatter.format(lexer.lex(query))
         end
 
       #   # def _roda_run_main_route

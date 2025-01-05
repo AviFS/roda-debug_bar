@@ -11,7 +11,7 @@ Sequel::Model.plugin :debug_bar
 class Employer < Sequel::Model
 end
 
-puts Employer.first.inspect
+# puts Employer.first.inspect
 
 # puts Employer.plugins.include?(:after_initialize)
 

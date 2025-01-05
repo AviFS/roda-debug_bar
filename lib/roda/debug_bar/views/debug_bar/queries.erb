@@ -1,0 +1,22 @@
+  <% if @data[:db_messages] %>
+  <div class="max-w mx-auto bg-gray-400">
+  <% def foo v
+       'bar'
+     end
+  %>
+  <% @data[:db_messages].each do |query| %>
+    <div class="highlight px-4 py-2 odd:bg-white even:bg-ruby-50 font-mono"><%= sql_highlight(query).downcase %></div>
+  <% end %>
+
+  <div id="foo"></div>
+
+  <!-- Fill up 5 rows minimum -->
+ <!-- <% (6-@data[:db_messages].size).times do %> <div class="px-4 py-2 odd:bg-white even:bg-ruby-50 font-mono">&#8203;</div> <% end %> -->
+  <!-- -->
+
+  <% else %>
+    <div class="px-4 py-2 odd:bg-white even:bg-ruby-50">No queries</div>
+  <% end %>
+  </div>
+
+<%# grid_component(@data[:db_messages], ) %>

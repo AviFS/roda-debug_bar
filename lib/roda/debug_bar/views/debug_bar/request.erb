@@ -10,13 +10,16 @@ request.env.each do |key, value|
   hash << {name: key.downcase, value: value} if key.start_with?('HTTP_')
 end
 
-hash << { name: 'request_headers', value: request.env }
+# hash << { name: 'request_headers', value: request.env.filter {|k, v| k.to_s.start_with? 'HTTP_' } }
+hash << { name: 'request_headers', value: request.env.to_json }
+
+hash << { name: 'response_headers', value: response.headers }
 
 %>
 
 <div class="max-w mx-auto space-y-1 font-mono">
   <% hash.each do |elem| %>
-  <div class="px-4 py-1 odd:bg-white even:bg-ruby-50">
+  <div class="px-4 py-2 odd:bg-white even:bg-ruby-50">
     <span class="inline-block w-64"><%= elem[:name] %></span><span class=""><%= elem[:value] %></span>
   </div>
   <% end %>

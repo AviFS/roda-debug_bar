@@ -25,7 +25,7 @@ module Sequel
 
         def after_initialize
           Roda::DebugBar::Current.add_model(self.class, self.values)
-          puts "created #{self.inspect}"
+          # puts "created #{self.inspect}"
         end
       end
 

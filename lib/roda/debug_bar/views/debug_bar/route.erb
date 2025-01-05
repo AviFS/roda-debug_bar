@@ -1,0 +1,17 @@
+<% @app_root ||= __dir__ %>
+<% @data[:handler] ||= 'nilString' %>
+<% @data[:routes] ||= {} %>
+
+
+<div class="px-4 py-2 odd:bg-white even:bg-ruby-50">
+  <a class="text-blue-500 hover:underline hover:cursor-pointer" href="vscode://file/<%= File.join(@app_root, @data[:handler]) %>">
+    <%= @data[:handler] %>
+  </a>
+</div>
+<% @data[:routes].each do |route| %>
+  <div class="px-4 py-2 odd:bg-white even:bg-ruby-50">
+  <a class="text-blue-500 hover:underline hover:cursor-pointer" href="vscode://file/<%= File.join(@app_root, route[:path]) %>">
+    <%= route[:handler] %>
+  </a>
+  </div>
+<% end %>

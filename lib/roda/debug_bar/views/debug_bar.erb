@@ -1,3 +1,4 @@
+
   <style>
     <%#= Rouge::Themes::Colorful.render(scope: '.highlight') %>
     <%#= Rouge::Themes::Github.mode(:light).render(scope: '.highlight') %>
@@ -25,30 +26,67 @@
     .highlight .p {
       color: #9ca3af;
     }
+
+
+
+    /****** ruby hash ******/
+
+    /* strings */
+    .highlight.ruby .ss {
+      font-weight: bold;
+      color: #912520;
+    }
+
+    .highlight.ruby .s2 {
+      color: #009999;
+    }
+
+    /* integers */
+    .highlight.ruby .mi {
+      font-weight: normal;
+      color: #0086B3;
+    }
+
+    /* punctuation */
+    .highlight.ruby .p {
+      color: #9ca3af;
+    }
+
+
+/*
+    .normalize * {
+      /* @apply @tailwind base;
+      all: unset;
+      display: block;
+    }
+*/
+
+
   </style>
 
   <!--  -->
-  <link rel="stylesheet" href="dist/out.css">
+  <link rel="stylesheet" href="/debug_bar/out.css">
   <!--  -->
 
   <div x-data="debugBarComponent()" x-init="init()">
 
     <!-- Ruby logo in lower lefthand side -->
     <div>
-      <div x-show="hidden" class="fixed bottom-0 left-0 pb-2 pt-2 pl-2 pr-3 text-center hover:cursor-pointer border-t-4 border-ruby-600 bg-gray-200" @click="hidden = false">
-        <img src="/dist/ruby.png" alt="Ruby" class="h-7 w-auto">
+      <div x-show="openState == 'hidden'" class="fixed bottom-0 left-0 pb-2 pt-2 pl-2 pr-3 text-center hover:cursor-pointer border-t-4 border-ruby-600 bg-gray-200" @click="setOpenState('open')">
+        <img src="/debug_bar/ruby.png" alt="Ruby" class="h-7 w-auto">
       </div>
     </div>
 
-    <section x-show="!hidden" class="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300">
+    <section x-show="openState != 'hidden'" class="fixed bottom-0 left-0 w-full bg-gray-200 border-t border-gray-300">
       <!-- Debug Bar -->
       <div class="w-full bg-gray-200 border-t border-gray-300">
         <!-- Tabs -->
 
-        <!-- Clickable Ruby logo to hide debug bar -->
-        <div class="flex bg-gray-200">
-          <div class="pt-2 px-2 text-center hover:cursor-pointer" @click="hidden = true">
-            <img src="/dist/ruby.png" alt="Ruby" class="h-7 w-auto">
+        <div class="flex items-center bg-gray-200">
+
+          <!-- Clickable Ruby logo to hide debug bar -->
+          <div class="px-2 text-center hover:cursor-pointer" @click="setOpenState('hidden')">
+            <img src="/debug_bar/ruby.png" alt="Ruby" class="h-7 w-auto">
           </div>
 
           <!-- Tab group for request/models/queries... -->
@@ -63,14 +101,32 @@
             </div>
           </template>
 
-          <div class="w-8">
+          <!--
+          <div class="w-16">
           </div>
+          -->
+
+          <!-- Make right bar left aligned instead -->
 
           <div class="flex-1 py-2 text-center text-sm border-t-4 border-transparent text-gray-800 font-mono">
             <%= relative_render('debug_bar/right_bar') %>
           </div>
 
-          <div>
+          <div class="flex justify-center align-center mr-2">
+            <!-- <img src="" alt="foo" srcset="" @click="setOpenState('minimized')" class="hover:cursor-pointer"> -->
+
+            <svg @click="toggleMinimized()" class="hover:cursor-pointer size-5" :class="openState == 'minimized' ? 'rotate-180': ''"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+
+
+            <svg @click="setOpenState('hidden')" class="hover:cursor-pointer size-5"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+            </svg>
+
+
 
           </div>
 
@@ -79,9 +135,9 @@
         <!-- <div class="p-8 bg-gray-100 text-sm text-gray-800"> -->
         <!-- <div class="bg-gray-100 text-sm text-gray-800 h-48 overflow-y-auto"> -->
         <%#= @data.inspect %>
-        <%#= @data[0][:request].request_method %>
-        <%#= @data[0][:request].path %>
-        <div class="bg-white text-sm text-gray-800 h-48 overflow-y-auto">
+        <%#= @data[:request].request_method %>
+        <%#= @data[:request].path %>
+        <div class="bg-white text-sm text-gray-800 h-56 overflow-y-auto" x-show="openState == 'open'">
           <template x-for="(tab, index) in tabs" :key="index">
             <div x-show="selectedTab === index" x-html="tab.content"></div>
           </template>
@@ -90,21 +146,11 @@
     </section>
   </div>
 
-  <!-- <script src="//unpkg.com/alpinejs" defer></script> -->
   <script>
-    function         ss() {
-          let f = sessionStorage.getItem('selectedTab');
-          if (f == null) {
-            return 4;
-          }
-          return f;
-        }
-
-
     function debugBarComponent() {
       return {
         selectedTab: 0,
-        hidden: false,
+        openState: 'open',
         tabs: [
           // Can't comment out lines with backticks or it doesn't render
           { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
@@ -120,24 +166,23 @@
           { label: 'Session', content: 'Debug Info for Tab 4' },
         ],
 
-        ss() {
-          let f = sessionStorage.getItem('selectedTab');
-          if (f == null) {
-            return 4;
-          }
-          return f;
+        init() {
+          this.selectedTab = parseInt(sessionStorage.getItem('debugBar.selectedTab')) || this.selectedTab;
+          this.openState = sessionStorage.getItem('debugBar.openState') || this.openState;
         },
 
-        init() {
-          let saved = sessionStorage.getItem('selectedTab') || 0;
-          console.log('saved: ', saved);
-          this.selectedTab = saved;
-          console.log('selected: ', this.selectedTab);
+        toggleMinimized() {
+          this.setOpenState(this.openState == 'minimized'? 'open': 'minimized');
+        },
+
+        setOpenState(openState) {
+          this.openState = openState;
+          sessionStorage.setItem('debugBar.openState', openState);
         },
 
         selectTab(index) {
           this.selectedTab = index;
-          sessionStorage.setItem('selectedTab', index);
+          sessionStorage.setItem('debugBar.selectedTab', index);
         }
       };
     }

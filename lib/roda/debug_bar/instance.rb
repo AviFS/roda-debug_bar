@@ -28,7 +28,7 @@ class Roda
 
 
       ### added
-      attr_reader :datas
+      attr_accessor :debug_data
 
       # attr_reader :views
       ###
@@ -39,7 +39,6 @@ class Roda
         @root = root
         @log_entries = []
         # @views = []
-        @datas = []
         @matches = []
         @timer = Process.clock_gettime(Process::CLOCK_MONOTONIC)
         @filter = filter || proc { false }
@@ -68,6 +67,10 @@ class Roda
           handler = format("%s:%d",
             Pathname(last_matched_caller.path).relative_path_from(root),
             last_matched_caller.lineno)
+        end
+
+        if handler.nil?
+          handler = 'nilString'
         end
 
         meth =
@@ -137,7 +140,7 @@ class Roda
 
         return if filter.call(request.path)
 
-        add_datas(data)
+        @debug_data = data
         add_log_entry([meth, "#{request.request_method} #{request.path}", data])
       end
 
@@ -172,10 +175,6 @@ class Roda
       #   @views << view
       #   puts @views
       # end
-
-      def add_datas(data)
-        @datas << data
-      end
 
       def add_log_entry(record)
         @log_entries << record

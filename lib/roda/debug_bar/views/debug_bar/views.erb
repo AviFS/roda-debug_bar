@@ -1,13 +1,15 @@
-  <% if @data[0][:views] %>
-  <div class="max-w mx-auto space-y-1">
-  <% views = @data[0][:views].tally; views.each do |view, count| %>
-    <div class="p-4 odd:bg-white even:bg-gray-100 flex justify-between">
+  <% @app_root ||= __dir__ %>
+
+  <% if @data[:views] %>
+  <div class="max-w mx-auto">
+  <% views = @data[:views].tally; views.each do |view, count| %>
+    <div class="px-4 py-2 odd:bg-white even:bg-ruby-50 flex justify-between">
       <span><%= view %> x<%= count %></span>
       <!-- Make dynamic to engine and views directory -->
       <a href="<%= "vscode://file/#{File.join(@app_root, "views/#{view}.erb")}" %>" class="text-blue-500 hover:underline hover:cursor-pointer"><%= "views/#{view}.erb" %></a>
     </div>
   <% end %>
   <% else %>
-    <div class="p-4 odd:bg-white even:bg-gray-100">No views</div>
+    <div class="p-4 odd:bg-white even:bg-ruby-50">No views</div>
   <% end %>
   </div>
