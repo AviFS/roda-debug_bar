@@ -12,7 +12,7 @@ While the debug bar is inspired by Laravel's, the code is based on adam12's enha
 ## Demo
 
 
-https://github.com/user-attachments/assets/4dda7af7-f75b-419c-a09d-69a828915fbe
+https://github.com/user-attachments/assets/969ca1fe-e197-4dc5-a7f9-e184828e5828
 
 
 Here's a demonstration of the N+1 problem when lazy loading.
