@@ -11,7 +11,9 @@ While the debug bar is inspired by Laravel's, the code is based on adam12's enha
 
 ## Demo
 
--- video --
+
+https://github.com/user-attachments/assets/4c5f89f7-080c-4671-a4bc-afd23aef02f5
+
 
 Here's a demonstration of the N+1 problem when lazy loading.
 
