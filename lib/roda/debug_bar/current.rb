@@ -41,9 +41,9 @@ class Roda
         Thread.current[:database_query_count] = value
       end
 
-      def add_database_query(message)
+      def add_database_query(message, duration)
         Thread.current[:database_queries] ||= []
-        Thread.current[:database_queries] << message
+        Thread.current[:database_queries] << {query: message, duration: duration}
       end
 
       def database_queries

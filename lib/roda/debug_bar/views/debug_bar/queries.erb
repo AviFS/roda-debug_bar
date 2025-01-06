@@ -4,8 +4,16 @@
        'bar'
      end
   %>
+  <div class="px-4 py-2 odd:bg-white even:bg-ruby-50 font-mono flex justify-between">
+    <span class="italic"><%= @data[:db_queries] == 1? "1 statement was executed": "#{@data[:db_queries]} statements were executed" %></span>
+    <span class="text-gray-900"><%= format_time(@data[:db]) %></span>
+
+  </div>
   <% @data[:db_messages].each do |query| %>
-    <div class="highlight px-4 py-2 odd:bg-white even:bg-ruby-50 font-mono"><%= sql_highlight(query).downcase %></div>
+    <div class="highlight px-4 py-2 odd:bg-white even:bg-ruby-50 font-mono flex justify-between">
+      <span><%= sql_highlight(query[:query]).downcase %></span>
+      <span class="text-gray-500"><%= format_time(query[:duration]) %></span>
+    </div>
   <% end %>
 
   <div id="foo"></div>

@@ -29,7 +29,7 @@ module DebugBar
     def log_duration(duration, message)
       Roda::DebugBar::Current.increment_accrued_database_time(duration)
       Roda::DebugBar::Current.increment_database_query_count
-      Roda::DebugBar::Current.add_database_query(message)
+      Roda::DebugBar::Current.add_database_query(message, duration.round(6))
 
       super
     end

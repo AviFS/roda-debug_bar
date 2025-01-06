@@ -17,8 +17,10 @@
   -->
 
     <div x-data="{open: false}">
-      <span><%= model_name %> x<%= models_list.size %> </span>
+      <!-- <span><%= model_name %> x<%= models_list.size %> </span> -->
+      <span class="font-mono"><%= model_name %></span>
       <span @click="open = !open" x-text="open? '[-]': '[+]'" class="text-blue-500 hover:cursor-pointer hover:text-blue-700 active:text-blue-400"></span>
+      <span class="ml-1 px-2 py-[0.125rem] bg-ruby-600 text-white rounded-full text-xs"><%= models_list.size %></span>
       <ul x-show="open" class="font-mono">
       <% models_list.each do |values| %>
         <!-- <li class="ml-6 highlight">{ <%= highlight_ruby_hash(values.map { |k, v| "#{k}: #{v}" }.join(',  ')) %> }</li> -->

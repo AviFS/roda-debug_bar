@@ -112,6 +112,10 @@ class Roda
             @debug_catch = true
             request.env['PATH_INFO'].sub!('/debug_bar/c', '')
           end
+          if request.env['PATH_INFO'].start_with? '/c/'
+            @debug_catch = true
+            request.env['PATH_INFO'].sub!('/c', '')
+          end
 
         end
 
@@ -247,6 +251,24 @@ HTML
           formatter = Rouge::Formatters::HTML.new
           lexer = Rouge::Lexers::Ruby.new
           formatter.format(lexer.lex(query))
+        end
+
+        def format_time time
+
+          # case time
+          # in 1e-6...1e-3
+          #   "#{time*1e6}μs"
+          # in 1e-3...
+          # end
+
+          if time < 1e-3
+            "#{(time*1e6).round}μs"
+          elsif time < 1
+            "#{(time*1e3).round(3)}ms"
+          else
+            "#{time}s"
+          end
+
         end
 
       #   # def _roda_run_main_route

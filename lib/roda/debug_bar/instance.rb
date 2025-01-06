@@ -117,6 +117,8 @@ class Roda
 
         data[:request] = request
 
+        # data[:request_inspect] = request.env
+
         # data[:views] = @views
 
         if trace

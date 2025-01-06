@@ -4,7 +4,11 @@
   <div class="max-w mx-auto">
   <% views = @data[:views].tally; views.each do |view, count| %>
     <div class="px-4 py-2 odd:bg-white even:bg-ruby-50 flex justify-between">
-      <span><%= view %> x<%= count %></span>
+      <!-- <span><%= view %> x<%= count %></span> -->
+      <span>
+        <%= view %>
+        <span class="ml-1 px-2 py-[0.125rem] bg-ruby-600 text-white rounded-full text-xs"><%= count %></span>
+      </span>
       <!-- Make dynamic to engine and views directory -->
       <a href="<%= "vscode://file/#{File.join(@app_root, "views/#{view}.erb")}" %>" class="text-blue-500 hover:underline hover:cursor-pointer"><%= "views/#{view}.erb" %></a>
     </div>

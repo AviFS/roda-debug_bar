@@ -1,1 +1,4 @@
-GET / <%#= request.path %> <%= RUBY_VERSION %>
+<!-- GET / <%#= request.path %> <%= RUBY_VERSION %> -->
+
+<span>GET <%= request.path %></span>
+<span class="ml-2"><%= format_time(@data[:duration]) %></span>
