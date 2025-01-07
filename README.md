@@ -27,6 +27,10 @@ You can also hit the little bug icon to get the full JSON of all the data stored
 
 https://github.com/user-attachments/assets/74c65b9f-a030-47e2-8f30-1480ce35f712
 
+I'll come back to that data in the next section...
+
+## Separation of concerns
+
 While the code is a little messy and spread between several different namespaces -- `roda/plugins`, `sequel/extensions` and `sequel/plugins` -- it's actually quite cleanly encapsulated in that data object.
 
 That data object is `@data` and it's a simple Roda instance variable, a hash, containing everything that debug bar collects after all its hooks. As an instance variable, it's available everywhere in your route block and in your views.
@@ -46,7 +50,6 @@ tabs: [
 You can add and remove tabs from here, and the spacing will be taken care of by flexbox, and the functionality by AlpineJS. And within that view, `@data` will be accessible.
 
 So adding a tab is as simple as making a new view in `lib/roda/debug_bar/views/debug_bar/` and adding a line in the spot shown above. You can add, or remove, or modify as many as you want and it'll still be rendered well and function.
-
 
 The messages and session tab have not been implemented yet. They just have placeholder Laravel's debug bar also has a timeline, exceptions, mails and gate tab.
 
