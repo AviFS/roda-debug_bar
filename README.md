@@ -35,9 +35,9 @@ end
 
 ## Naming
 
-Just a quick note, as I found the naming convention weird the first time I saw it. The hyphen is used to denote that a gem belongs to, or extends another. For instance, this is used in `rspec-rails`, which extends rspec with rails-specific features, or `devise-jwt`, which adds jwt support to devise. The underscore is used to separate words when the name of the gem itself is more than one word as in `json_pure`, which is simply a json gem in pure Ruby, not an extension of 'json' with pure.
+Just a quick note, as I found the naming convention weird the first time I saw it. The hyphen is used to denote that a gem belongs to, or extends another. For instance `rspec-rails` extends rspec with rails-specific features and `devise-jwt` adds jwt support to devise. The underscore is used to separate words when the name of the gem itself is more than one word as in `json_pure`.
 
-In this case, the `-` in `roda-` signifies that it's a Roda plugin, whereas the `_` in `debug_bar` mean that the name of the extension is "debug bar."
+In this case, the `-` in `roda-` signifies that it's a Roda plugin, whereas the `_` in `debug_bar` means that the name of the extension is "debug bar."
 
 ## Contributing
 
