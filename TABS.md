@@ -1,6 +1,7 @@
 # Tabs
 
 ##### Table of Contents
+- [Header](#header)
 - [Request](#request)
 - [Models](#models)
 - [Queries](#queries)
@@ -9,6 +10,21 @@
 - [Route](#route)
 - [Session](#session)
 - [Other](#Other)
+
+## Header
+
+This displays the official Ruby logo, the tabs as clickable elements, and then the right hand side.
+
+The right hand side currently shows the request method and the path along with how long the response took. There is a bug icon, which when clicked, returns the full `@data` object generated for the request rendered as JSON.
+
+The minimize and close icons are at the very right to hide the debug bar. Click the Ruby logo will also open/close the debug bar.
+
+![Header](docs/tabs/header.png)
+
+#### WIP Notes
+The right hand side, rendered here as `GET /jobs/4 5.7ms` to the left of the bug icon, is open to change. The Laravel debug bar renders quite a bit more meta information, including the memory usage (not currently tracked), the PHP version, and two icons which seem to me to be different views of the last few requests you've made. (The Laravel bar does not have the bug, though. That's my own doing to make the `@data` object more accessible. The `@data` object contains everything scraped by the debug bar.)
+
+There might be some coloring added to that right hand side, more information, etc. I also think the styling could use some work and that the header should be narrower, with smaller text.
 
 ## Request
 
