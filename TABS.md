@@ -2,18 +2,18 @@
 
 ## Request
 
-![Request Tab](docs/tabs/request.png)
-
 Request info like the request method, path, params, status code, http version, and the request and response headers.
+
+![Request Tab](docs/tabs/request.png)
 
 #### WIP Notes
 I'd like to add a JSON expandable/collapsible tree view with syntax highlighting for some of the larger hashes, like env. I looked through a few javascript libraries, but I didn't like the styling in this context, so I might make my own. An expandable/collapsible tree viewer for hashes is high priority as one of the next features, and it would be used across most of the tabs.
 
 ## Models
 
-![Models Tab](docs/tabs/model.png)
-
 The models that are used are displayed, with a count of how many models were used, and an expandable view showing the values for each model. Assumes the use of Ruby library Sequel.
+
+![Models Tab](docs/tabs/model.png)
 
 #### WIP Notes
 The syntax highlighting colors are fairly good, but the colors and styling were hand-picked for the "Queries" tab, and it could use some adjusting. Until I've got a nice, recursive, JSON tree viewer, the expanding and the syntax highlighting are done server side, and can only expand one level deep. That is, to either show all the instances of a given model, or hide them, but not to expand within one.
@@ -21,9 +21,9 @@ The syntax highlighting colors are fairly good, but the colors and styling were 
 
 ## Queries
 
-![Queries Tab](docs/tabs/queries.png)
-
 The SQL queries that were run are shown on the left, and how long they took on the right. Currently, an overview line is shown at the top saying how many statements were executed, and how long they took in total. Assumes the use of Ruby library Sequel.
+
+![Queries Tab](docs/tabs/queries.png)
 
 ## Messages
 
