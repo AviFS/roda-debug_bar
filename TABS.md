@@ -1,14 +1,14 @@
 # Tabs
 
 ##### Table of Contents
-[Request](#request)
-[Models](#models)
-[Queries](#queries)
-[Messages](#messages)
-[Views](#views)
-[Route](#route)
-[Session](#session)
-[Future](#future)
+- [Request](#request)
+- [Models](#models)
+- [Queries](#queries)
+- [Messages](#messages)
+- [Views](#views)
+- [Route](#route)
+- [Session](#session)
+- [Future](#future)
 
 ## Request
 
@@ -64,7 +64,7 @@ The syntax highlighting and styles here needs some *serious* work.
 
 The session tab currently displays just a placeholder, but can easily be modified in the future to display the session data if `plugin :session` is loaded.
 
-## Others
+## Future
 
 The Laravel debug bar also has a "Timeline" tab, an "Exceptions" tab, a "Mails" tab and a "Gate" tab. Of these, the mails tab sounds useful and can be added in the future. The timeline tab sounds neat, and can certainly be implemented. And as for the exceptions and gate tab, I'm not sure what they do.
 
