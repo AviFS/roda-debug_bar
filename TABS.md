@@ -17,7 +17,7 @@ This displays the official Ruby logo, the tabs as clickable elements, and then t
 
 The right hand side currently shows the request method and the path along with how long the response took. There is a bug icon, which when clicked, returns the full `@data` object generated for the request rendered as JSON.
 
-The minimize and close icons are at the very right to hide the debug bar. Click the Ruby logo will also open/close the debug bar.
+The minimize and close icons are at the very right to hide the debug bar. Clicking the Ruby logo will also open/close the debug bar.
 
 ![Header](docs/tabs/header.png)
 
