@@ -8,6 +8,14 @@ While the debug bar is inspired by Laravel's, the code is based on adam12's enha
 
 ![Debug Bar Preview](docs/roda-debug_bar.png)
 
+## Demo
+
+
+
+More info about the tabs can be found at TABS.md. More info about the data shown as json can be found in DEVELOPMENT.md.
+
+bug icon and the /c/ capture route can be found at BUGS.md. And more info
+
 ## Installation
 
 Add this line to your application's Gemfile:
