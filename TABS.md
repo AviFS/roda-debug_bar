@@ -1,6 +1,6 @@
 # Tabs
 
-##### Table of Contents
+## Table of Contents
 - [Header](#header)
 - [Request](#request)
 - [Models](#models)
@@ -9,7 +9,7 @@
 - [Views](#views)
 - [Route](#route)
 - [Session](#session)
-- [Other](#Other)
+- [Other](#other)
 
 ## Header
 
