@@ -2,7 +2,7 @@
 
 The Roda debug bar is inspired by Laravel's debug bar. That project has 17k stars, so it's clearly something people appreciate. However, there isn't one for Roda.
 
-I've made the design Ruby-themed as much as I can, down to using the official brand color `#cc342d`.It also plugs into Sequel and I plan to have it plug into Rodauth as well, once I'm more familiar with it.
+I've made the design Ruby-themed as much as I can, down to using the official brand color `#cc342d`. It also plugs into Sequel and I plan to have it plug into Rodauth as well, once I'm more familiar with it.
 
 While the debug bar is inspired by Laravel's, the code is based on adam12's enhanced logger for Roda, https://github.com/adam12/roda-enhanced_logger. It was an invaluable help in implementing the thread-safe code. It still has the `current.rb` and `instance.rb` files from the original project.
 
