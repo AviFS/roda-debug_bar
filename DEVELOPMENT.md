@@ -9,9 +9,9 @@
     - [`plugins/`](#sequel)
     -  [`extensions/`](#sequel)
 
-## `roda/plugins/`
+## `roda`
 
-`debug_bar.rb`
+`plugins/debug_bar.rb`
 
 Roda plugin. Borrowed from `roda-enhanced_logger`.
 
