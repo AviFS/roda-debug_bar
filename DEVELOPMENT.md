@@ -9,13 +9,13 @@
     - [`plugins/`](#sequel)
     -  [`extensions/`](#sequel)
 
-## `roda/`
+## `roda`
 
 `plugins/debug_bar.rb`
 
 Roda plugin. Borrowed from `roda-enhanced_logger`.
 
-## `sequel/`
+## `sequel`
 
 `extensions/debug_bar.rb`
 
@@ -25,7 +25,7 @@ This plugs into Sequel itself for tracking queries. Borrowed from `roda-enhanced
 
 This plugs into Sequel models for tracking models.
 
-## `roda/debug_bar/`
+## `roda/debug_bar`
 
 `current.rb`
 
