@@ -1,5 +1,21 @@
 # Development
 
+## `lib/roda/plugins/`
+
+`debug_bar.rb`
+
+Roda plugin. Borrowed from `roda-enhanced_logger`.
+
+## `lib/sequel/`
+
+`extensions/debug_bar.rb`
+
+This plugs into Sequel itself for tracking queries. Borrowed from `roda-enhanced_logger`.
+
+`plugins/debug_bar.rb`
+
+This plugs into Sequel models for tracking models.
+
 ## `lib/roda/debug_bar/`
 
 `current.rb`
@@ -10,20 +26,22 @@ Wrapper around `Thread.current` to keep track of per-request attributes, like qu
 
 Debug bar instance. All of adding to `@data` is handled here. Borrowed from `roda-enhanced_logger`.
 
-## `lib/roda/plugins/`
-`roda/plugins/debug_bar.rb`
+## `lib/roda/debug_bar/views`
 
-Roda plugin. Borrowed from `roda-enhanced_logger`.
+`debug_bar.erb`
 
-## `lib/sequel/`
+Layout for debug bar.
 
-`sequel/extensions/debug_bar.rb`
+## `lib/roda/debug_bar/views/debug_bar/*.erb`
 
-This plugs into Sequel itself. Borrowed from `roda-enhanced_logger`.
+One file for each tab, and one for the right hand side of the header that includes meta-information. (Currently `GET /path 4.3ms`.)
+  - models.erb
+  - queries.erb
+  - request.erb
+  - right_bar.erb
+  - route.erb
+  - views.erb
 
-`sequel/plugins/debug_bar.rb`
-
-This plugs into Sequel models.
 
 Attribution:
  - https://github.com/adam12
