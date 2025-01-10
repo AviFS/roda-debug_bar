@@ -11,6 +11,23 @@ While the debug bar is inspired by Laravel's, the code is based on adam12's enha
 
 ## Demo
 
+https://github.com/user-attachments/assets/969ca1fe-e197-4dc5-a7f9-e184828e5828
+
+Here's a demonstration of the N+1 problem when lazy loading.
+
+https://github.com/user-attachments/assets/7ff80cb2-3c5d-447c-a5a1-bb4221207daf
+
+It also can be minimized or hidden.
+
+https://github.com/user-attachments/assets/e9591891-e01c-496c-bafd-0d0ac1140cef
+
+That state will be preserved as you click around the site, so the debug bar shouldn't be a bother, but is there when you need it.
+
+You can also hit the little bug icon to get the full JSON of all the data stored in the request that debug bar has collected.
+
+https://github.com/user-attachments/assets/74c65b9f-a030-47e2-8f30-1480ce35f712
+
+I'll come back to that data in the next section...
 
 ## Separation of concerns
 
@@ -70,18 +87,4 @@ end
 
 ## Naming
 
-Just a quick note, as I found the naming convention weird the first time I saw it. The hyphen (`-`) separator is used to denote that a gem belongs to, or extends another. For instance, this is used in rspec-rails, which extends rspec with rails-specific features, or devise-jwt, which adds jwt support to devise. The underscore (`_`) separator is used to separate words when the name of the gem itself is more than one word as in json_pure, which is simply a json gem in pure Ruby, not an extension of 'json' with pure.
-
-In this case, the `-` in `roda-` signifies that it's a Roda plugin, whereas the `_` in `debug_bar` mean that the name of the extension is "debug bar."
-
-## Contributing
-
-I'd love feedback! This project is young and still hasn't hit its first stable release (1.0.0 with SemVer). You can find me on the [Ruby Discord](https://discord.gg/gC83Q4Kq) as @AviFS.
-
-## Versioning
-
-This project uses [Semantic Versioning](https://semver.org) for version control.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+Just a quick note, as I found the naming convention weird the first time I saw it. The hyphen (`-`) separator is used to denote that a gem belongs to, or extends another. For instance, this is used in rspec-rails, which extends rspec with rails-specific featur
