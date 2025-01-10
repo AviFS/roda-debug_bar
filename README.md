@@ -12,7 +12,7 @@ While the debug bar is inspired by Laravel's, the code is based on adam12's enha
 
 
 
-More info about the tabs can be found at TABS.md. More info about the data shown as json can be found in DEVELOPMENT.md.
+More info about the tabs can be found at [TABS.md](TABS.md). More info about the data shown as json can be found in [DEVELOPMENT.md](DEVELOPMENT.md).
 
 bug icon and the /c/ capture route can be found at BUGS.md. And more info
 
