@@ -1,10 +1,10 @@
 # Development
 
-- [`lib/`](#rodaplugins)
-  * [`roda/`](#rodaplugins)
+- [`lib/`](#roda)
+  * [`roda/`](#roda)
     - [`debug_bar/`](#rodadebug_bar)
       * [`views`](#rodadebug_barviews)
-    - [`plugins/`](#rodaplugins)
+    - [`plugins/`](#roda)
   * [`sequel/`](#sequel)
     - [`plugins/`](#sequel)
     -  [`extensions/`](#sequel)
