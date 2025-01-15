@@ -13,8 +13,33 @@ While the debug bar is inspired by Laravel's, the code is based on adam12's enha
 
 https://github.com/user-attachments/assets/f0f47f31-4840-4767-bfeb-dbb2be96c87f
 
+More info about each of the tabs can be found at [TABS.md](/docs/TABS.md). Info about the layout of the source code can be found in [DEVELOPMENT.md](/docs/DEVELOPMENT.md). And as for the data in the json shown at the end, more info on that page can be found at [DEBUG_PAGE](/docs/DEBUG_PAGE.md). But we'll come back to the data in the next section...
 
-More info about the tabs can be found at [TABS.md](/docs/TABS.md). More info about the json shown at the end can be found in [DEBUG_PAGE](/docs/DEBUG_PAGE.md). And more info about the source code can be found in [DEVELOPMENT.md](/docs/DEVELOPMENT.md).
+## Separation of concerns
+
+While the code is a little messy and spread between several different namespaces -- `roda/plugins`, `sequel/extensions` and `sequel/plugins` -- it's actually quite cleanly encapsulated in that data object.
+
+That data object is `@data` and it's a simple Roda instance variable, a hash, containing everything that debug bar collects after all its hooks. As an instance variable, it's available everywhere in your route block and in your views.
+
+The tabs are displayed by this relevant piece of code:
+
+```js
+// lib/roda/debug_bar/views/debug_bar.erb:189
+tabs: [
+  { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
+  { label: 'Models', content: `<%= relative_render('debug_bar/models') %>` },
+  { label: 'Queries', content: `<%= relative_render('debug_bar/queries') %>` },
+  // ...
+]
+```
+
+You can add and remove tabs from here, and the spacing will be taken care of by flexbox, and the functionality by AlpineJS. And within that view, `@data` will be accessible.
+
+So adding a tab is as simple as making a new view in `lib/roda/debug_bar/views/debug_bar/` and adding a line in the spot shown above. You can add, or remove, or modify as many as you want and it'll still be rendered well and function.
+
+The session tab has not been implemented yet. It just has a placeholder value. Laravel's debug bar also has a timeline, exceptions, mails and gate tab.
+
+I'd like to add a JSON expandable/collapsible view for the Ruby hashes, however I wasn't able to find one that I liked after searching through, so I might have to make my own.
 
 ## Installation
 
