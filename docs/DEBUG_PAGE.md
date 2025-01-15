@@ -1,5 +1,9 @@
 # Debug Page
 
+## Image
+
+![Debug Page](https://avifs-images.surge.sh/image.png)
+
 ## Bug Icon
 Clicking the bug icon redirects to `/debug_bar/last/1` which serves the entire `@data` object for the last request as JSON. That is, everything scraped by the debug bar, and all its hooks and plugins. As expected, `/debug_bar/last/{n}` will serve the nth last request. Currently, the last five requests are stored. (They are stored in the Roda class variable `@@data_store`.)
 
@@ -21,7 +25,3 @@ The `/c/` shorthand isn't official because  might clutter the path namespace for
     /debug_bar/catch/{path}     # full path to catch @data for /path
     /debug_bar/c/{path}         # shorter path to catch @data for /path
     /c/{path}                   # shortest path to catch @data for /path
-
-## Image
-
-![Debug Page](https://avifs-images.surge.sh/image.png)
