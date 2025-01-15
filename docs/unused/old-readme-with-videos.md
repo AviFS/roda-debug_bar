@@ -6,7 +6,7 @@ I've made the design Ruby-themed as much as I can, down to It also plugs into Se
 
 While the debug bar is inspired by Laravel's, the code is based on adam12's enhanced logger for Roda, https://github.com/adam12/roda-enhanced_logger. It was an invaluable help in implementing the thread-safe code. It still has the `current.rb` and `instance.rb` files from the original project.
 
-![Debug Bar Preview](docs/roda-debug_bar.png)
+![Debug Bar Preview](/docs/roda-debug_bar.png)
 
 
 ## Demo

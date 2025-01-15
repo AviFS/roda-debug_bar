@@ -6,13 +6,13 @@ I've made the design Ruby-themed as much as I can, down to using the official br
 
 While the debug bar is inspired by Laravel's, the code is based on adam12's enhanced logger for Roda, https://github.com/adam12/roda-enhanced_logger. It was an invaluable help in implementing the thread-safe code. It still has the `current.rb` and `instance.rb` files from the original project.
 
-![Debug Bar Preview](docs/roda-debug_bar.png)
+![Debug Bar Preview](/docs/roda-debug_bar.png)
 
 ## Demo
 
 
 
-More info about the tabs can be found at [TABS.md](TABS.md). More info about the data shown as json can be found in [DEVELOPMENT.md](DEVELOPMENT.md).
+More info about the tabs can be found at [TABS.md](/docs/TABS.md). More info about the data shown as json can be found in [DEVELOPMENT.md](/docs/DEVELOPMENT.md).
 
 bug icon and the /c/ capture route can be found at BUGS.md. And more info
 
