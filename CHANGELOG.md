@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - See TABS.md for a sense of the current planned features.
 - Move out.css to `lib/roda/debug_bar/styles` and extract syntax highlighting css from `debug_bar.erb` into `lib/roda/debug_bar/styles/syntax_highlight.css`
 
+## [0.2.1] - 2025-01-14
+
+### Fixed
+- Fixed missing tailwind style for svg icons in the messages tab
+
 ## [0.2.0] - 2025-01-14
 
 ### Added
