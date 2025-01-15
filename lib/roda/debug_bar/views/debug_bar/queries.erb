@@ -6,13 +6,24 @@
   %>
   <div class="px-4 py-2 odd:bg-white even:bg-ruby-50 font-mono flex justify-between">
     <span class="italic"><%= @data[:db_queries] == 1? "1 statement was executed": "#{@data[:db_queries]} statements were executed" %></span>
-    <span class="text-gray-900"><%= format_time(@data[:db]) %></span>
+
+    <span class="text-gray-900 flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4 mr-1">
+        <path fill-rule="evenodd" d="M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8Zm7.75-4.25a.75.75 0 0 0-1.5 0V8c0 .414.336.75.75.75h3.25a.75.75 0 0 0 0-1.5h-2.5v-3.5Z" clip-rule="evenodd" />
+      </svg>
+    <%= format_time(@data[:db]) %></span>
 
   </div>
   <% @data[:db_messages].each do |query| %>
     <div class="highlight px-4 py-2 odd:bg-white even:bg-ruby-50 font-mono flex justify-between">
       <span><%= sql_highlight(query[:query]).downcase %></span>
-      <span class="text-gray-500"><%= format_time(query[:duration]) %></span>
+      <span class="text-gray-500 flex items-center">
+
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4 mr-1">
+        <path fill-rule="evenodd" d="M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8Zm7.75-4.25a.75.75 0 0 0-1.5 0V8c0 .414.336.75.75.75h3.25a.75.75 0 0 0 0-1.5h-2.5v-3.5Z" clip-rule="evenodd" />
+      </svg>
+
+      <%= format_time(query[:duration]) %></span>
     </div>
   <% end %>
 

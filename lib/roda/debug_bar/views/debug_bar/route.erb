@@ -9,9 +9,40 @@
   </a>
 </div>
 <% @data[:routes].each do |route| %>
-  <div class="px-4 py-2 odd:bg-white even:bg-ruby-50">
-  <a class="text-blue-500 hover:underline hover:cursor-pointer" href="vscode://file/<%= File.join(@app_root, route[:path]) %>">
-    <%= route[:handler] %>
+  <div class="px-4 py-2 odd:bg-white even:bg-ruby-50 flex justify-between">
+
+  <a class="highlight ruby route hover:underline hover:cursor-pointer" href="vscode://file/<%= File.join(@app_root, route[:path]) %>">
+    <%= highlight_ruby_hash(route[:handler]) %>
   </a>
+
+  <a class="text-blue-500 hover:underline hover:cursor-pointer" href="vscode://file/<%= File.join(@app_root, route[:path]) %>">
+    <%= route[:path] %>
+  </a>
+
+
+
+
+
   </div>
 <% end %>
+
+
+<!-- views.erb
+  <% @app_root ||= __dir__ %>
+
+  <% if @data[:views] %>
+  <div class="max-w mx-auto">
+  <% views = @data[:views].tally; views.each do |view, count| %>
+    <div class="px-4 py-2 odd:bg-white even:bg-ruby-50 flex justify-between">
+      <span>
+        <%= view %>
+        <span class="ml-1 px-2 py-[0.125rem] bg-ruby-600 text-white rounded-full text-xs"><%= count %></span>
+      </span>
+      <a href="<%= "vscode://file/#{File.join(@app_root, "views/#{view}.erb")}" %>" class="text-blue-500 hover:underline hover:cursor-pointer"><%= "views/#{view}.erb" %></a>
+    </div>
+  <% end %>
+  <% else %>
+    <div class="p-4 odd:bg-white even:bg-ruby-50">No views</div>
+  <% end %>
+  </div>
+-->

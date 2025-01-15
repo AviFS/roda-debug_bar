@@ -24,7 +24,7 @@
       <ul x-show="open" class="font-mono">
       <% models_list.each do |values| %>
         <!-- <li class="ml-6 highlight">{ <%= highlight_ruby_hash(values.map { |k, v| "#{k}: #{v}" }.join(',  ')) %> }</li> -->
-        <li class="ml-6 highlight ruby"><%= highlight_ruby_hash(values.to_s) %></li>
+        <li class="ml-6 highlight ruby hash"><%= highlight_ruby_hash(values.to_s) %></li>
       <% end %>
       </ul>
     </div>

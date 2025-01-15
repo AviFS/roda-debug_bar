@@ -32,24 +32,52 @@
     /****** ruby hash ******/
 
     /* strings */
-    .highlight.ruby .ss {
+    .highlight.ruby.hash .ss {
       font-weight: bold;
       color: #912520;
     }
 
-    .highlight.ruby .s2 {
+    .highlight.ruby.hash .s2 {
       color: #009999;
     }
 
     /* integers */
-    .highlight.ruby .mi {
+    .highlight.ruby.hash .mi {
       font-weight: normal;
       color: #0086B3;
     }
 
     /* punctuation */
-    .highlight.ruby .p {
+    .highlight.ruby.hash .p {
       color: #9ca3af;
+    }
+
+
+    /******* ruby routes tab *******/
+
+    .highlight.ruby.route .s1 {
+      color: #009999;
+    }
+
+    .highlight.ruby.route .nf {
+      font-style: italic;
+    }
+
+    .highlight.ruby.route .n {
+      font-weight: bold;
+      color: #912520;     /* ruby-700 */
+    }
+
+    .highlight.ruby.route .no {
+      color: #138;
+    }
+
+    .highlight.ruby.route .o {
+      color: #9ca3af;
+    }
+
+    .highlight.ruby .nb {
+      color: #701d19;
     }
 
 
@@ -163,14 +191,13 @@
           { label: 'Request', content: `<%= relative_render('debug_bar/request') %>` },
           { label: 'Models', content: `<%= relative_render('debug_bar/models') %>` },
           { label: 'Queries', content: `<%= relative_render('debug_bar/queries') %>` },
-          { label: 'Messages', content: 'Debug Info for Tab 1' },
-          // { label: 'Timeline', content: 'Debug Info for Tab 2' },
+          { label: 'Messages', content: `<%= relative_render('debug_bar/messages') %>` },
           // { label: 'Exceptions', content: 'Debug Info for Tab 3' },
           { label: 'Views', content: `<%= relative_render('debug_bar/views') %>` },
           { label: 'Route', content:  `<%= relative_render('debug_bar/route') %>` },
           // { label: 'Mails', content: 'Debug Info for Tab 4' },
           // { label: 'Gate', content: 'Debug Info for Tab 4' },
-          { label: 'Session', content: 'Debug Info for Tab 4' },
+          { label: 'Session', content: `<%= relative_render('debug_bar/session') %>` },
         ],
 
         init() {

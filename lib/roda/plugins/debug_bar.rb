@@ -16,8 +16,7 @@ class Roda
         db: nil,
         log_time: false,
         trace_missed: true,
-        ##### PUT TRACE ALL TO TRUE AGAIN
-        trace_all: false,
+        trace_all: true,
         # trace_all: true,
         filtered_params: %w[password password_confirmation _csrf],
         handlers: [:console]
@@ -35,6 +34,7 @@ class Roda
 
       def self.configure(app, opts = {})
         # app.opts[:debug_bar] = opts
+        # app.include InstanceMethods::DebugLog
 
         @@data_store = []
 
@@ -133,6 +133,8 @@ class Roda
           # This @data is available to views
           @data = @_debug_bar_instance.debug_data
 
+          puts @data.to_json
+
           if @debug_catch
             response = @data.to_json
             res[1]['content-type'] = 'application/json'
@@ -207,6 +209,19 @@ HTML
       #########
 
       module InstanceMethods
+
+        # module DebugLog
+          def log_info message
+            @_debug_bar_instance.add_message(:info, message)
+          end
+          def log_warn message
+            @_debug_bar_instance.add_message(:warn, message)
+          end
+          def log_error message
+            @_debug_bar_instance.add_message(:error, message)
+          end
+        # end
+
 
         # def add_data(data)
         #   if @@data_store.size < 5

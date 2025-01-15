@@ -39,6 +39,7 @@ class Roda
         @root = root
         @log_entries = []
         # @views = []
+        @messages = []
         @matches = []
         @timer = Process.clock_gettime(Process::CLOCK_MONOTONIC)
         @filter = filter || proc { false }
@@ -115,6 +116,10 @@ class Roda
           data[:views] = views
         end
 
+        if @messages
+          data[:messages] = @messages
+        end
+
         data[:request] = request
 
         # data[:request_inspect] = request.env
@@ -178,8 +183,16 @@ class Roda
       #   puts @views
       # end
 
+      # built-in from roda-enhanced_logger
       def add_log_entry(record)
         @log_entries << record
+      end
+
+      public
+
+      # logged to message tab
+      def add_message(log_level, message)
+        @messages << {type: log_level, message: message}
       end
     end
   end
