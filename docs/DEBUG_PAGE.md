@@ -1,7 +1,5 @@
 # Debug Page
 
-## Image
-
 ![Debug Page](https://avifs-images.surge.sh/image.png)
 
 ## Bug Icon
