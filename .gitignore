@@ -1,3 +1,4 @@
 *.gem
 public/out.css
 scratch/
+.DS_Store
