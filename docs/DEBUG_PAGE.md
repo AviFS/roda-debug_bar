@@ -1,6 +1,6 @@
 # Debug Page
 
-![Debug Page](docs/debug_page.png)
+![Debug Page](debug_page.png)
 
 ## Bug Icon
 Clicking the bug icon redirects to `/debug_bar/last/1` which serves the entire `@data` object for the last request as JSON. That is, everything scraped by the debug bar, and all its hooks and plugins. As expected, `/debug_bar/last/{n}` will serve the nth last request. Currently, the last five requests are stored. (They are stored in the Roda class variable `@@data_store`.)
