@@ -11,16 +11,18 @@ request.env.each do |key, value|
 end
 
 # hash << { name: 'request_headers', value: request.env.filter {|k, v| k.to_s.start_with? 'HTTP_' } }
-hash << { name: 'request_headers', value: request.env.to_json }
+hash << { name: 'request_headers', value: request.env }
 
 hash << { name: 'response_headers', value: response.headers }
 
+require_relative "../../html_formatter"
 %>
 
 <div class="max-w mx-auto space-y-1 font-mono">
   <% hash.each do |elem| %>
-  <div class="px-4 py-2 odd:bg-white even:bg-ruby-50">
-    <span class="inline-block w-64"><%= elem[:name] %></span><span class=""><%= elem[:value] %></span>
+  <div class="flex px-4 py-2 odd:bg-white even:bg-ruby-50">
+    <span class="inline-block w-64"><%= elem[:name] %></span><span class=""><%= HTMLFormatter::RubyHash.parse(elem[:value]) %></span>
+    <!--<span><%#= HTMLFormatter::RubyHash.parse(elem[:value]) %></span>-->
   </div>
   <% end %>
 </div>

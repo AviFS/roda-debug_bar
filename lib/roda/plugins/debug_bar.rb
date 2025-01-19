@@ -2,6 +2,7 @@ require "tty-logger"
 require "pathname"
 require_relative "../debug_bar/current"
 require_relative "../debug_bar/instance"
+require_relative "../debug_bar/html_formatter"
 require_relative "../../sequel/extensions/debug_bar"
 require_relative "../../sequel/plugins/debug_bar"
 require 'rouge'
