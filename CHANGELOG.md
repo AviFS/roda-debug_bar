@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - See TABS.md for a sense of the current planned features.
 - Move out.css to `lib/roda/debug_bar/styles` and extract syntax highlighting css from `debug_bar.erb` into `lib/roda/debug_bar/styles/syntax_highlight.css`
 
+## [0.3.0-rc1.0] - 2025-01-19
+
+### Added
+- Hashes can finally be rendered as recursively expandable/collapsible html, implemented in `html_formatter.rb`
+
+## Changed
+- Request tab now uses the expandable/collapsible hashes and the displayed data was reworked to mirror Laravel's debug bar, with an additional `rack_env` hash at the bottom which defaults to closed
+- Monospace font for debug bar now defaults to Menlo
+
+## Fixed
+- Removed extraneous testing file in `lib/sequel/`
+
 ## [0.2.1] - 2025-01-14
 
 ### Fixed
