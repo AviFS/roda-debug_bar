@@ -10,8 +10,7 @@ While the debug bar is inspired by Laravel's, the code is based on adam12's enha
 
 ## Demo
 
-
-https://github.com/user-attachments/assets/f0f47f31-4840-4767-bfeb-dbb2be96c87f
+https://github.com/user-attachments/assets/2e4d9305-442e-4d5e-8c4d-bddc62a934c0
 
 More info about each of the tabs can be found at [TABS.md](/docs/TABS.md). Info about the layout of the source code can be found in [DEVELOPMENT.md](/docs/DEVELOPMENT.md). And as for the data in the json shown at the end, more info on that page can be found at [DEBUG_PAGE.md](/docs/DEBUG_PAGE.md). But we'll come back to the data in the next section...
 
