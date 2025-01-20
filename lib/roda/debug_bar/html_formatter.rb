@@ -11,6 +11,8 @@ module HTMLFormatter
     CONSTANT = 'kc'
     SYMBOL = 'ss'
 
+    EXPANDABLE = 'exp'
+
 
     def initialize
       @index = 0
@@ -46,7 +48,8 @@ module HTMLFormatter
       return '{}' if hash.empty?
       i = @index
       @index += 1
-      html = "<button @click='state[#{i}] = !state[#{i}]' x-text=\"state[#{i}]? 'hash:#{hash.size} {▼': 'hash:#{hash.size} {▶}'\" class='focus:outline-none'></button>"
+      html  = "<button x-show='state[#{i}]' @click='state[#{i}] = false' class='focus:outline-none'><span class='#{EXPANDABLE}'>hash:#{hash.size} </span><span>{</span><span class='#{PUNCTUATION}'>▼</span></button>"
+      html += "<button x-show='!state[#{i}]' @click='state[#{i}] = true' class='focus:outline-none'><span class='#{EXPANDABLE}'>hash:#{hash.size} </span><span>{</span><span class='#{PUNCTUATION}'>▶</span><span class='#{EXPANDABLE}'></span><span>}</span></button>"
       # html += "<dl x-show='state[#{i}]' class='grid grid-cols-2 ml-4'>"
       html += "<dl x-show='state[#{i}]' class='ml-4'>"
       hash.each do |key, value|
@@ -65,7 +68,8 @@ module HTMLFormatter
       return '[]' if array.empty?
       i = @index
       @index += 1
-      html = "<button @click='state[#{i}] = !state[#{i}]' x-text=\"state[#{i}]? 'array:#{array.size} [▼': 'array:#{array.size} [▶]'\" class='focus:outline-none'></button>"
+      html  = "<button x-show='state[#{i}]' @click='state[#{i}] = false' class='focus:outline-none'><span class='#{EXPANDABLE}'>array:#{array.size} </span><span>[</span><span class='#{PUNCTUATION}'>▼</span></button>"
+      html += "<button x-show='!state[#{i}]' @click='state[#{i}] = true' class='focus:outline-none'><span class='#{EXPANDABLE}'>array:#{array.size} </span><span>[</span><span class='#{PUNCTUATION}'>▶</span><span class='#{EXPANDABLE}'></span><span>]</span></button>"
       html += "<ul x-show='state[#{i}]' class='ml-4'>"
       array.each do |value|
         html += "<li>#{parse_value(value)}</li>"
