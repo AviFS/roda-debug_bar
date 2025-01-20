@@ -16,14 +16,19 @@ module HTMLFormatter
       @index = 0
     end
 
-    def self.parse(source)
+    def self.parse(source, start_open: true)
       instance = new
-      instance.parse(source)
+      instance.parse(source, start_open: start_open)
     end
 
-    def parse(source)
+    def parse(source, start_open: true)
+      # Don't apply highlighting if it's a string
+      return source if source.is_a? String
+
       html = parse_value(source)
-      "<div x-data='{state: #{[0]*@index}}' class='#{SCOPE} w-96'>#{html}</div>"
+      open_states = [false] * @index
+      open_states[0] = true if start_open # open to first level
+      "<div x-data='{state: #{open_states}}' class='#{SCOPE} w-96'>#{html}</div>"
     end
 
     def parse_value(value)
@@ -38,6 +43,7 @@ module HTMLFormatter
     end
 
     def parse_hash(hash)
+      return '{}' if hash.empty?
       i = @index
       @index += 1
       html = "<button @click='state[#{i}] = !state[#{i}]' x-text=\"state[#{i}]? 'hash:#{hash.size} {▼': 'hash:#{hash.size} {▶}'\" class='focus:outline-none'></button>"
@@ -56,6 +62,7 @@ module HTMLFormatter
     end
 
     def parse_array(array)
+      return '[]' if array.empty?
       i = @index
       @index += 1
       html = "<button @click='state[#{i}] = !state[#{i}]' x-text=\"state[#{i}]? 'array:#{array.size} [▼': 'array:#{array.size} [▶]'\" class='focus:outline-none'></button>"
@@ -77,11 +84,11 @@ module HTMLFormatter
       in Float
         "<span class='#{FLOAT}'>#{value}</span>"
       in TrueClass
-        "<span class='#{CONSTANT}'>#{value}</span>"
+        "<span class='#{CONSTANT}'>#{true}</span>"
       in FalseClass
-        "<span class='#{CONSTANT}'>#{value}</span>"
+        "<span class='#{CONSTANT}'>#{false}</span>"
       in NilClass
-        "<span class='#{CONSTANT}'>#{value}</span>"
+        "<span class='#{CONSTANT}'>#{nil}</span>"
       in _
         "<span class='unknown'>#{value}</span>"
       end

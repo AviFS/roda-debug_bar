@@ -1,30 +1,59 @@
 <%
 
+STATUS_TEXTS ||= {
+  200 => "OK",
+  201 => "Created",
+  204 => "No Content",
+  301 => "Moved Permanently",
+  302 => "Found",
+  400 => "Bad Request",
+  401 => "Unauthorized",
+  403 => "Forbidden",
+  404 => "Not Found",
+  500 => "Internal Server Error",
+  502 => "Bad Gateway",
+  503 => "Service Unavailable"
+}.freeze
+
+# According to Roda docs, response.status returns:
+# > The status code to use for the response.
+# > If none is given, will use 200 code for non-empty responses and a 404 code for empty responses.
+status = response.status || (response.body.empty? ? 404: 200)
+
+# This is just to mimic Laravel's debug bar
+format = {'text/html' => 'html', 'application/json' => 'json'}.fetch(response.headers['content-type'], 'not set')
+
 hash = [
-  { name: 'request_method', value: request.request_method },
-  { name: 'request_path', value: request.path },
-  { name: 'request_params', value: request.params }
+  # { name: 'request_method', value: request.request_method },
+  { name: 'path_info', value: request.path },
+  { name: 'status_code', value: status },
+  { name: 'status_text', value: STATUS_TEXTS[status] },
+  { name: 'format', value: format },
+  { name: 'content_type', value: response.headers['content-type'] },
+  # { name: 'request_params', value: request.params },
+  { name: 'request_query', value: request.GET },
+  { name: 'request_request', value: request.POST },
+  { name: 'request_headers', value: request.env.filter { |v| v.start_with? 'HTTP_' }.transform_keys { |k| k.sub('HTTP_', '').downcase } },
+  { name: 'request_cookies', value: request.cookies },
+  { name: 'response_headers', value: response.headers },
+  { name: 'session_attributes', value: begin request.session rescue {} end }
 ]
-
-request.env.each do |key, value|
-  hash << {name: key.downcase, value: value} if key.start_with?('HTTP_')
-end
-
-# hash << { name: 'request_headers', value: request.env.filter {|k, v| k.to_s.start_with? 'HTTP_' } }
-hash << { name: 'request_headers', value: request.env }
-
-hash << { name: 'response_headers', value: response.headers }
 
 require_relative "../../html_formatter"
 %>
 
 <div class="max-w mx-auto space-y-1 font-mono">
   <% hash.each do |elem| %>
-  <div class="flex px-4 py-2 odd:bg-white even:bg-ruby-50">
-    <span class="inline-block w-64"><%= elem[:name] %></span><span class=""><%= HTMLFormatter::RubyHash.parse(elem[:value]) %></span>
-    <!--<span><%#= HTMLFormatter::RubyHash.parse(elem[:value]) %></span>-->
+  <div class="flex px-4 py-1 odd:bg-white even:bg-ruby-50">
+    <span class="inline-block min-w-64"><%= elem[:name] %></span><span class=""><%= HTMLFormatter::RubyHash.parse(elem[:value]) %></span>
   </div>
   <% end %>
+
+  <%# rack_env should start closed, unlike the others %>
+  <div class="flex px-4 py-1 odd:bg-white even:bg-ruby-50">
+    <span class="inline-block min-w-64">rack_env</span><span class=""><%= HTMLFormatter::RubyHash.parse(request.env.transform_keys(&:downcase), start_open: false) %></span>
+  </div>
+
 </div>
 
 <!--

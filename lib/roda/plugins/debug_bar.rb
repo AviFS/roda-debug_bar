@@ -7,8 +7,6 @@ require_relative "../../sequel/extensions/debug_bar"
 require_relative "../../sequel/plugins/debug_bar"
 require 'rouge'
 
-require 'json'
-
 class Roda
   module RodaPlugins
     module DebugBar
