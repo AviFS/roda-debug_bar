@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        mono: ['Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', 'Courier New', 'monospace'],
+      },
       colors: {
         ruby: {
           50: "#faebea",
