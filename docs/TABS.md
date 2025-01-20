@@ -33,7 +33,9 @@ Request info like the request method, path, params, status code, http version, a
 ![Request Tab](/docs/tabs/request.png)
 
 #### WIP Notes
-I'd like to add a JSON expandable/collapsible tree view with syntax highlighting for some of the larger hashes, like env. I looked through a few javascript libraries, but I didn't like the styling in this context, so I might make my own. An expandable/collapsible tree viewer for hashes is high priority as one of the next features, and it would be used across most of the tabs.
+~~I'd like to add a JSON expandable/collapsible tree view with syntax highlighting for some of the larger hashes, like env. I looked through a few javascript libraries, but I didn't like the styling in this context, so I might make my own. An expandable/collapsible tree viewer for hashes is high priority as one of the next features, and it would be used across most of the tabs.~~
+
+This was added with 0.3.0-rc1.0, but it currently only applies to the request tab.
 
 ## Models
 
@@ -43,6 +45,8 @@ The models that are used are displayed, with a count of how many models were use
 
 #### WIP Notes
 The syntax highlighting colors are fairly good, but the colors and styling were hand-picked for the "Queries" tab, and it could use some adjusting. Until I've got a nice, recursive, JSON tree viewer, the expanding and the syntax highlighting are done server side, and can only expand one level deep as shown above. Hashes within models can't be expanded.
+
+**[24-1-19]:** This was added, but it's currently not applying to the model tab.
 
 ## Queries
 
